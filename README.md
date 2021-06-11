@@ -35,7 +35,7 @@ function redirect_search_result() {
 }
 add_filter('template_redirect', 'redirect_search_result');
 ```
-If a user searches "test" it will automatically route to the page titled test (if you have one)
+If a user searches "test" it will automatically route to the page titled test (if you have one). This does not work if you have SearchWP installed
 
 
 ## Customizing the WPSearch Plugin (without a Pro license)
