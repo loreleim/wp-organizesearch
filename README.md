@@ -1,6 +1,23 @@
 # Wordpress Organize Search Results
 a plugin + research platform for custom organization in WP's search.php
 
+## A simple functions.php, not case sensitive
+```
+function redirect_search_result() {
+	if (is_search()) {
+    global $wp_query;
+    $s_str = $wp_query->query_vars['s'];
+    foreach ($wp_query->posts as $p) {
+      if (strtolower($p->post_title) == strtolower($s_str)) {
+        wp_redirect(get_permalink($p->ID));
+        exit();
+      }
+    }
+  }
+}
+add_filter('template_redirect', 'redirect_search_result');
+```
+
 
 ## Customizing the WPSearch Plugin (without a Pro license)
 
@@ -20,6 +37,9 @@ Version: 1.0.0
 ```
 
 For the custom hooks and code, you can do various things like: 
+
+
+
 
 
 
