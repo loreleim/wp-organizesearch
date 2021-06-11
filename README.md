@@ -2,6 +2,7 @@
 a plugin + research platform for custom organization in WP's search.php
 
 ## A simple functions.php, not case sensitive
+Use this if you want all matching cases to redirect to a page
 ```
 function redirect_search_result() {
 	if (is_search()) {
@@ -17,6 +18,24 @@ function redirect_search_result() {
 }
 add_filter('template_redirect', 'redirect_search_result');
 ```
+
+## Use this if you want to redirect in certain cases
+```
+function redirect_search_result() {
+	if (is_search()) {
+    global $wp_query;
+    $s_str = $wp_query->query_vars['s'];
+    foreach ($wp_query->posts as $p) {
+      if (strtolower($p->post_title) === "test") {
+        wp_redirect(get_permalink($p->ID));
+        exit();
+      }
+    }
+  }
+}
+add_filter('template_redirect', 'redirect_search_result');
+```
+If a user searches "test" it will automatically route to the page titled test (if you have one)
 
 
 ## Customizing the WPSearch Plugin (without a Pro license)
