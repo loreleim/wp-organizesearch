@@ -21,19 +21,19 @@ add_filter('template_redirect', 'redirect_search_result');
 
 ## Use this if you want to redirect in certain cases
 ```
-function redirect_search_result() {
+function redirectSearch() {
 	if (is_search()) {
     global $wp_query;
-    $s_str = $wp_query->query_vars['s'];
-    foreach ($wp_query->posts as $p) {
+	$queryPosts = $wp_query->posts;
+    foreach ($queryPosts as $p) {
       if (strtolower($p->post_title) === "test") {
-        wp_redirect(get_permalink($p->ID));
+        wp_redirect(get_permalink( get_page_by_title( 'test' ) ));
         exit();
       }
     }
   }
 }
-add_filter('template_redirect', 'redirect_search_result');
+add_filter('template_redirect', 'redirectSearch');
 ```
 If a user searches "test" it will automatically route to the page titled test (if you have one). This does not work if you have SearchWP installed
 
